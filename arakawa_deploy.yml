@@ -1,0 +1,7 @@
+---
+### Arakawa
+- name: Deploy PostgreSQL
+  hosts: postgresql
+  become: true
+  roles:
+    - { role: sshd,   tags: sshd }
