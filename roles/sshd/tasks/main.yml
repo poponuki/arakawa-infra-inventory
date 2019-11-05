@@ -1,35 +1,27 @@
-tasks:
-  - name: configure / Disable root login
-    lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: "^PermitRootLogin"
-      insertafter: "^#PermitRootLogin"
-      line: "PermitRootLogin no"
+- name: configure / Disable root login
+  lineinfile:
+   dest: /etc/ssh/sshd_config
+   regexp: "^PermitRootLogin"
+   insertafter: "^#PermitRootLogin"
+   line: "PermitRootLogin no"
 
-  - name: configure / Disable password authenication
-    lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: "^PasswordAuthentication"
-      insertafter: "^#PasswordAuthentication"
-      line: "PasswordAuthentication no"
+- name: configure / Disable password authenication
+  lineinfile:
+   dest: /etc/ssh/sshd_config
+   regexp: "^PasswordAuthentication"
+   insertafter: "^#PasswordAuthentication"
+   line: "PasswordAuthentication no"
 
-  - name: configure / Disable challenge and response authenication
-    lineinfile:
-      dest: /etc/ssh/sshd_config
-      regexp: "^ChallengeResponseAuthentication"
-      insertafter: "^#ChallengeResponseAuthentication"
-      line: "ChallengeResponseAuthentication no"
+- name: configure / Disable challenge and response authenication
+  lineinfile:
+   dest: /etc/ssh/sshd_config
+   regexp: "^ChallengeResponseAuthentication"
+   insertafter: "^#ChallengeResponseAuthentication"
+   line: "ChallengeResponseAuthentication no"
 
-  - name: "configure / Release the firewalld 22/tcp "
-    firewalld:
-      port: "22/tcp"
-      permanent: true
-      state: enabled
-      immediate: true
-
-handlers:
-  - name: "Restart sshd"
-    systemd:
-      name: sshd.service
-      state: restarted
-    become: yes
+- name: "configure / Release the firewalld 22/tcp "
+  firewalld:
+   port: "22/tcp"
+   permanent: true
+   state: enabled
+   immediate: true
