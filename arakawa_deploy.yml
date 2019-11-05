@@ -4,4 +4,5 @@
   hosts: postgresql
   become: true
   roles:
+    - { role: common, tags: common }
     - { role: sshd,   tags: sshd }

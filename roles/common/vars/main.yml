@@ -1,0 +1,3 @@
+users:
+  - { name: "arakawa", password: "dream", groups: "" }
+  - { name: "centos",  password: "dream", groups: "wheel" }
