@@ -1,0 +1,4 @@
+postgresql_conf:
+  - { regexp: "^#listen_addresses", line: "listen_addresses = '*'" }
+  - { regexp: "^#port", line: "port = 5432" }
+  - { regexp: "max_connections = 100", line: "max_connections = 2000" }

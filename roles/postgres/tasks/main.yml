@@ -1,0 +1,73 @@
+- name: "configure / Import PostgreSQL Repository"
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: latest
+    update_cache: yes
+
+- name: "Install PostgreSQL"
+  yum:
+    name:
+     - python-psycopg2
+     - postgresql12
+     - postgresql12-server
+    state: installed
+
+- name: "configure / initdb"
+  shell: /usr/pgsql-12/bin/initdb -D /var/lib/pgsql/12/data --no-locale
+  become: yes
+  become_user: postgres
+  args:
+    creates: /var/lib/pgsql/12/data/postgresql.conf
+
+- name: "configure / postgresql.conf"
+  become: yes
+  become_user: postgres
+  lineinfile:
+   dest=/var/lib/pgsql/12/data/postgresql.conf
+   regexp='{{ item.regexp }}'
+   regexp='{{ item.line }}'
+   with_items:　"{{ postgresql_conf }}"
+  notify:
+    - restart postgresql
+
+- name: "configure / pg_hba.conf"
+  become: yes
+  become_user: postgres
+  blockinfile:
+   dest: /var/lib/pgsql/12/data/pg_hba.conf
+   block: |
+    host    all         all         127.0.0.1/32          password
+    host    all         all         192.168.0.0/24        password
+  notify:
+    - restart postgresql
+
+- name: "configure / Release the firewalld 5432/tcp"
+  firewalld:
+    port: "5432/tcp"
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: "configure / enable postgresql-12 service"
+  systemd:
+    name: postgresql-12
+    enabled: yes
+    state: started
+
+- name: "application configure / create user"
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    name: "arakawa"
+    password: "dream"
+
+- name: "application configure / create database"
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "arakawa"
+    template: "template0"
+    encoding: "UTF-8"
+    lc_collate: "C"
+    owner: "arakawa"
+

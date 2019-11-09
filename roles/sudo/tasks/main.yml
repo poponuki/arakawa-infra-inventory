@@ -1,0 +1,5 @@
+- name: configure / sudo nopasswd
+  lineinfile:
+   dest: /etc/sudoers
+   regexp: "^#%wheel  ALL=(ALL)       NOPASSWD: ALL"
+   line: "%wheel  ALL=(ALL)       NOPASSWD: ALL"

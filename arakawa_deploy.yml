@@ -1,8 +1,15 @@
 ---
 ### Arakawa
+- name: Deploy OS Setting
+  hosts: node
+  become: true
+  roles:
+    - { role: sudo, tags: sudo }
+    - { role: common, tags: common }
+    - { role: sshd,   tags: sshd }
+
 - name: Deploy PostgreSQL
   hosts: postgresql
   become: true
   roles:
-    - { role: common, tags: common }
-    - { role: sshd,   tags: sshd }
+    - { role: postgres, tags: postgres }
