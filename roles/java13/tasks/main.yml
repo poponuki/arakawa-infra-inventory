@@ -1,0 +1,27 @@
+- name: download Oracle JDK 13
+  get_url:
+    url=https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz
+    dest=/tmp/openjdk-13.0.1_linux-x64_bin.tar.gz
+    validate_certs=no
+    owner=centos
+    group=centos
+    mode=744
+
+- name: unarchive Oracle JDK 13
+#  stat: path=/opt/jdk-13.0.1/
+#  register: stat
+  shell: "tar zxvf /tmp/openjdk-13.0.1_linux-x64_bin.tar.gz chdir=/opt/ && chown -R centos:centos /opt/openjdk"
+#  when: stat.stat.exists
+
+# - name: makedir /opt/jdk-13.0.1
+#   file:
+#     path=/opt/jdk-13.0.1
+#     state=directory
+#     owner=centos
+#     group=centos
+#     mode=666
+
+# - name: remove download file
+#   file:
+#     path=/tmp/openjdk-13.0.1_linux-x64_bin.tar.gz
+#     state=absent

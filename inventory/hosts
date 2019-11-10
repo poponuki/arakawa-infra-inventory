@@ -4,6 +4,10 @@
 [node]
 els01
 db01
+api01
+
+[api]
+api01
 
 [elasticsearch]
 els01

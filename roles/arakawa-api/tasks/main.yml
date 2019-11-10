@@ -1,0 +1,6 @@
+- name: mkdir arakawa-api app dir
+  file: path=/opt/arakawa-api/ state=directory owner=arakawa group=arakawa mode=0755
+
+- name: mkdir arakawa-api log dir
+  file: path=/var/log/arakawa-api/ state=directory owner=arakawa group=arakawa mode=0755
+

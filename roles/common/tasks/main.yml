@@ -13,6 +13,8 @@
     name: '*'
     state: latest
     update_cache: yes
+  async: 300
+  poll: 10
 
 - name: configure / Import EPEL Repository
   yum:
