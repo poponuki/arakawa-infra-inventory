@@ -24,9 +24,9 @@
   become_user: postgres
   lineinfile:
    dest=/var/lib/pgsql/12/data/postgresql.conf
-   regexp='{{ item.regexp }}'
-   regexp='{{ item.line }}'
-   with_items:　"{{ postgresql_conf }}"
+   regexp="{{ item.regexp }}"
+   regexp="{{ item.line }}"
+  with_items: "{{ postgresql_conf }}"
   notify:
     - restart postgresql
 
